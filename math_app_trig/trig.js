@@ -1,6 +1,6 @@
 let canvas = document.getElementById("my_canvas");
 let context = canvas.getContext("2d");
-canvas.width = 500;
+canvas.width = 480;
 canvas.height= 400;
 
 let draw_color = "black";
@@ -10,6 +10,8 @@ let is_drawing = false;
 let next_problem = false;
 let button_next = document.getElementById("btn_next");
 button_next.style.visibility = "hidden";
+let feedback = document.getElementById("ans_feedback");
+feedback.style.visibility = "hidden";
 
 
 class Problem{
@@ -82,7 +84,7 @@ function start(event)
     is_drawing = true;
     context.beginPath();
     context.moveTo(event.clientX - canvas.offsetLeft,
-                    event.clientY - canvas.offsetTop-20);
+                    event.clientY - canvas.offsetTop);
     event.preventDefault();
 }
 
@@ -91,7 +93,7 @@ function draw(event)
     if(is_drawing == true)
     {
         context.lineTo(event.clientX - canvas.offsetLeft,
-            event.clientY - canvas.offsetTop-20);
+            event.clientY - canvas.offsetTop);
         context.strokeStyle = draw_color;
         context.lineWidth = draw_width;
         context.lineCap = "round";
@@ -156,15 +158,17 @@ btn_clear.addEventListener("click", erase);
 btn_save.addEventListener("click",save);
 
 function erase() {
-    var m = confirm("Want to clear");
-    if (m) {
+    
+    /*var m = confirm("Want to clear");
+    if(m)*/
+
         img.src = problem_list[current_problem].get_file();
         context.fillStyle = "white";
         context.clearRect(0,0,canvas.width,canvas.height);
         context.fillRect(0,0,canvas.width,canvas.height);
         context.drawImage(img,0,0);
         document.getElementById("canvasimg").style.display = "none";
-    }
+        
 }
 
 function save() {
@@ -172,6 +176,8 @@ function save() {
     var dataURL = canvas.toDataURL();
     document.getElementById("canvasimg").src = dataURL;
     document.getElementById("canvasimg").style.display = "flex";
+    let canvasImg = document.getElementById("canvasimg");
+    canvasImg.style.visibility = "visible";
 }
 
 let input = document.getElementById("input_answer");
@@ -182,15 +188,21 @@ button_next.addEventListener("click",next_clicked);
 
 function submit_clicked()
 {
+
     if(input.value == problem_list[current_problem].get_answer())
     {
         console.log("Correct");
         button_next.style.visibility = "visible";
+        feedback.style.color = "green";
+        feedback.textContent = "GREAT JOB!";
     }
     else
     {
         console.log("Incorrect");
+        feedback.style.color = "red";
+        feedback.textContent = "TRY AGAIN!";
     }
+    feedback.style.visibility = "visible";
 }
 
 function next_clicked()
@@ -199,4 +211,5 @@ function next_clicked()
     erase();
     button_next.style.visibility = "hidden";
     input.value = "";
+    feedback.style.visibility = "hidden";
 }
