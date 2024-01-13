@@ -10,7 +10,8 @@ let is_drawing = false;
 let next_problem = false;
 let button_next = document.getElementById("btn_next");
 button_next.style.visibility = "hidden";
-
+let feedback = document.getElementById("ans_feedback"); // add to js
+feedback.style.visibility = "hidden";
 
 class Problem{
     constructor(file,answer,directions)
@@ -47,21 +48,21 @@ let filenames =  ["./images/problem0.PNG","./images/problem1.PNG",
 
 let answers = [498.4,21,920.7,31,307.6,77,233.3,57,209.8,33];
 
-let problem_directions_even = "Find the missing of the indicated angle. Round to the nearest degree."
-let problem_directions_odd = "Find the measure of the indicated angle to the nearest degree."
+let problem_directions_even = "Find the missing side length. Round to the nearest whole tenth.";
+let problem_directions_odd = "Find the measure of the indicated angle.  Round to nearest degree.";
 const problem_list = [];
 
 
 for(let i=0;i<problem_count;i++)
 {
-    if(i==0 || i==2 || i==4 || i==6 || i==8)
+    if(i%2==1)
     {
-        let problem = new Problem(filenames[i],answers[i],problem_directions_even);
+        let problem = new Problem(filenames[i],answers[i],problem_directions_odd);
         problem_list.push(problem);
     }
     else
     {
-        let problem = new Problem(filenames[i],answers[i],problem_directions_odd);
+        let problem = new Problem(filenames[i],answers[i],problem_directions_even);
         problem_list.push(problem);
     }
     
@@ -166,15 +167,17 @@ btn_clear.addEventListener("click", erase);
 btn_save.addEventListener("click",save);
 
 function erase() {
-    var m = confirm("Want to clear");
-    if (m) {
-        img.src = problem_list[current_problem].get_file();
-        context.fillStyle = "white";
-        context.clearRect(0,0,canvas.width,canvas.height);
-        context.fillRect(0,0,canvas.width,canvas.height);
-        context.drawImage(img,0,0);
-        document.getElementById("canvasimg").style.display = "none";
-    }
+     // add to js
+    /*var m = confirm("Want to clear");
+    if(m)*/
+
+    img.src = problem_list[current_problem].get_file();
+    context.fillStyle = "white";
+    context.clearRect(0,0,canvas.width,canvas.height);
+    context.fillRect(0,0,canvas.width,canvas.height);
+    context.drawImage(img,0,0);
+    document.getElementById("canvasimg").style.display = "none";
+    
 }
 
 function save() {
@@ -182,6 +185,9 @@ function save() {
     var dataURL = canvas.toDataURL();
     document.getElementById("canvasimg").src = dataURL;
     document.getElementById("canvasimg").style.display = "flex";
+    // add to js
+    let canvasImg = document.getElementById("canvasimg"); 
+    canvasImg.style.visibility = "visible";
 }
 
 let input = document.getElementById("input_answer");
@@ -196,11 +202,16 @@ function submit_clicked()
     {
         console.log("Correct");
         button_next.style.visibility = "visible";
+        feedback.style.color = "green";
+        feedback.textContent = "GREAT JOB!";
     }
     else
     {
         console.log("Incorrect");
+        feedback.style.color = "red";
+        feedback.textContent = "TRY AGAIN!";
     }
+    feedback.style.visibility = "visible";
 }
 
 function next_clicked()
@@ -210,4 +221,6 @@ function next_clicked()
     erase();
     button_next.style.visibility = "hidden";
     input.value = "";
+    // ADD TO JS
+    feedback.style.visibility = "hidden"; 
 }
