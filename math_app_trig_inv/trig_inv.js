@@ -10,7 +10,8 @@ let is_drawing = false;
 let next_problem = false;
 let button_next = document.getElementById("btn_next");
 button_next.style.visibility = "hidden";
-
+let feedback = document.getElementById("ans_feedback");
+feedback.style.visibility = "hidden";
 
 class Problem{
     constructor(file,answer,directions)
@@ -156,15 +157,15 @@ btn_clear.addEventListener("click", erase);
 btn_save.addEventListener("click",save);
 
 function erase() {
-    var m = confirm("Want to clear");
-    if (m) {
-        img.src = problem_list[current_problem].get_file();
-        context.fillStyle = "white";
-        context.clearRect(0,0,canvas.width,canvas.height);
-        context.fillRect(0,0,canvas.width,canvas.height);
-        context.drawImage(img,0,0);
-        document.getElementById("canvasimg").style.display = "none";
-    }
+     /*var m = confirm("Want to clear");
+    if(m)*/
+
+    img.src = problem_list[current_problem].get_file();
+    context.fillStyle = "white";
+    context.clearRect(0,0,canvas.width,canvas.height);
+    context.fillRect(0,0,canvas.width,canvas.height);
+    context.drawImage(img,0,0);
+    document.getElementById("canvasimg").style.display = "none";
 }
 
 function save() {
@@ -186,11 +187,16 @@ function submit_clicked()
     {
         console.log("Correct");
         button_next.style.visibility = "visible";
+        feedback.style.color = "green";
+        feedback.textContent = "GREAT JOB!";
     }
     else
     {
         console.log("Incorrect");
+        feedback.style.color = "red";
+        feedback.textContent = "TRY AGAIN!";
     }
+    feedback.style.visibility = "visible";
 }
 
 function next_clicked()
@@ -199,4 +205,5 @@ function next_clicked()
     erase();
     button_next.style.visibility = "hidden";
     input.value = "";
+    feedback.style.visibility = "hidden"; // ADD TO JS
 }
