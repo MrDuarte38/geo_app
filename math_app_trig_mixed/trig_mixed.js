@@ -10,7 +10,7 @@ let is_drawing = false;
 let next_problem = false;
 let button_next = document.getElementById("btn_next");
 button_next.style.visibility = "hidden";
-let feedback = document.getElementById("ans_feedback"); // add to js
+let feedback = document.getElementById("ans_feedback"); // add to js1
 feedback.style.visibility = "hidden";
 
 class Problem{
