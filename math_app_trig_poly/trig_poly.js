@@ -182,7 +182,7 @@ button_next.addEventListener("click",next_clicked);
 
 function submit_clicked()
 {
-    if(input.value == problem_list[current_problem].get_answer())
+    if(Math.abs(input.value - problem_list[current_problem].get_answer())<=1.9)
     {
         console.log("Correct");
         button_next.style.visibility = "visible";
