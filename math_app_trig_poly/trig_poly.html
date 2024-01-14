@@ -2,48 +2,64 @@
 
 <head>
   <title>
-    Trig. Regular Polygons
+    EZMaths
   </title>
-  <link rel="stylesheet" href="trig_poly.css">
+  <link rel="stylesheet" href="../math_app_trig/trig.css">
 </head>
 
 <body>
 
-  <h3 id="directions">Directions: </h3>
+  <div id="container_title">
+    <h1>Regular Polygons & Trigonometry</h1>
+  </div>
+
+  <div id="directions_container">
+    <h2 id="dir_header">Directions:</h2>
+    <h3 id="directions">directions placed here</h3>
+  </div>
+
   <div id="canvas_container">
     <canvas id="my_canvas"></canvas>
   </div>
 
-  <div id="head_color">Choose Color</div>
-  <div id="green"></div>
-  <div id="blue"></div>
-  <div id="red"></div>
-  <div id="yellow"></div>
-  <div id="orange"></div>
-  <div id="black"></div>
-
-
-  <div id="head_eraser">Eraser</div>
-  <div id="white"></div>
-
-  <img id="canvasimg" />
-  <input type="button" value="save" id="btn_save" size="50" />
-  <input type="button" value="clear" id="btn_clear" size="23" />
-
+  <div id="colors_container">
+    <h2 id="choose_color_text">Choose Color</h2>
+    <div id="flex_colors">
+      <div id="green"></div>
+      <div id="blue"></div>
+      <div id="red"></div>
+      <div id="yellow"></div>
+      <div id="orange"></div>
+      <div id="black"></div>
+      <div id="white"></div>
+      <input type="button" value="save" id="btn_save" size="50" />
+      <input type="button" value="clear" id="btn_clear" size="23" />
+    </div>
   </div>
-  <br>
-  <br>
-  <h3>Computer Algebra System(CAS)</h3>
-  <p>Hint: You must use the degree symbol when solving.</p>
-  <p>Degree Symbol(ALT + O) on Windows</p>
-  <p>Degree Symbol(CMD + O) on Mac</p>
-  <iframe scrolling="yes" title="Geogebra CAS2" src="https://www.geogebra.org/material/iframe/id/mxgenuru/width/600/height/285/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/true/asb/false/sri/false/rc/true/ld/false/sdz/true/ctl/false" width="600px" height="600px" style="border: 1px;"> </iframe>
 
+  <div id="save_container">
+    <img id="canvasimg" />
+  </div>
+  
   <div id="answer_container">
-    <p id="answer_label">Answer</p>
+    <h2 id="answer_label">Answer:       <span id="ans_feedback">    </span></h2>
     <input type="number" id="input_answer" />
     <button id="btn_submit">Submit</button>
     <button id="btn_next">Next</button>
+  </div>
+
+
+  <div id="cas">
+    <h3>Computer Algebra System(CAS)</h3>
+    <p style="padding-top: 5px; padding-bottom: 5px;">Hint: You must use the degree symbol when solving.</p>
+    <p><span style="color: #6557d2">Degree Symbol(ALT + O) on Windows</span> or <span style="color: #6557d2">Degree
+        Symbol(CMD + O) on Mac</span></p>
+
+    <br>
+    <iframe scrolling="yes" title="Geogebra CAS2"
+      src="https://www.geogebra.org/material/iframe/id/mxgenuru/width/600/height/600/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/true/asb/false/sri/false/rc/true/ld/false/sdz/true/ctl/false"
+      width="600px" height="600px"
+      style="border: 1px solid #6557d2; border-radius: 10px; float: right; margin-left: 1px; margin-right: 150px; margin-top: 0px;"> </iframe>
   </div>
 
 
