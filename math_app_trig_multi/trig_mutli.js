@@ -10,6 +10,8 @@ let is_drawing = false;
 let next_problem = false;
 let button_next = document.getElementById("btn_next");
 button_next.style.visibility = "hidden";
+let feedback = document.getElementById("ans_feedback"); // add to js
+feedback.style.visibility = "hidden";
 
 
 class Problem{
@@ -47,7 +49,7 @@ let filenames =  ["./images/problem0.PNG","./images/problem1.PNG",
 
 let answers = [60.2,18.2,13.1,16.7,20.6,16.7,33.5,121,14.4,109.3];
 
-let problem_directions = "Find the value of x. Round final and intermediate answers to the nearest tenth."
+let problem_directions = "Find the value of x. Round answer to the nearest tenth.";
 const problem_list = [];
 
 
@@ -156,15 +158,17 @@ btn_clear.addEventListener("click", erase);
 btn_save.addEventListener("click",save);
 
 function erase() {
-    var m = confirm("Want to clear");
-    if (m) {
-        img.src = problem_list[current_problem].get_file();
-        context.fillStyle = "white";
-        context.clearRect(0,0,canvas.width,canvas.height);
-        context.fillRect(0,0,canvas.width,canvas.height);
-        context.drawImage(img,0,0);
-        document.getElementById("canvasimg").style.display = "none";
-    }
+    // add to js
+    /*var m = confirm("Want to clear");
+    if(m)*/
+
+    img.src = problem_list[current_problem].get_file();
+    context.fillStyle = "white";
+    context.clearRect(0,0,canvas.width,canvas.height);
+    context.fillRect(0,0,canvas.width,canvas.height);
+    context.drawImage(img,0,0);
+    document.getElementById("canvasimg").style.display = "none";
+    
 }
 
 function save() {
@@ -172,6 +176,9 @@ function save() {
     var dataURL = canvas.toDataURL();
     document.getElementById("canvasimg").src = dataURL;
     document.getElementById("canvasimg").style.display = "flex";
+    // add to js
+    let canvasImg = document.getElementById("canvasimg"); 
+    canvasImg.style.visibility = "visible";
 }
 
 let input = document.getElementById("input_answer");
@@ -182,15 +189,20 @@ button_next.addEventListener("click",next_clicked);
 
 function submit_clicked()
 {
-    if(input.value == problem_list[current_problem].get_answer())
+    if(Math.abs(input.value - problem_list[current_problem].get_answer())<=0.21)
     {
         console.log("Correct");
         button_next.style.visibility = "visible";
+        feedback.style.color = "green";
+        feedback.textContent = "GREAT JOB!";
     }
     else
     {
         console.log("Incorrect");
+        feedback.style.color = "red";
+        feedback.textContent = "TRY AGAIN!";
     }
+    feedback.style.visibility = "visible";
 }
 
 function next_clicked()
@@ -199,4 +211,6 @@ function next_clicked()
     erase();
     button_next.style.visibility = "hidden";
     input.value = "";
+    // ADD TO JS
+    feedback.style.visibility = "hidden"; 
 }
